@@ -15,8 +15,8 @@
 
         <div class="justify-center max-w-6xl px-4 py-4 mx-auto lg:py-0">
             <div class="flex flex-wrap justify-center -mx-3 pt-11">
-            <div class="mb-8  :bg-gray-800">
-                        <div class="flex px-6 py-2 border border-blue-500 rounded-md  :border-gray-700">
+            <div class="mb-8 w-full :bg-gray-800">
+                        <div class="  flex px-6 py-2 border border-blue-500 rounded-md  :border-gray-700">
                             <input type="text"
                                 class="w-full pr-4 text-sm text-gray-700 outline-none   bg-gray-100 placeholder-text-100 "
                                 placeholder="search...">
