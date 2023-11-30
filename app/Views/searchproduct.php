@@ -35,89 +35,83 @@
                     <div class="bg-white rounded-md  :bg-gray-800">
                         <div class="p-4">
                             <div class="flex items-center justify-between mb-3">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm text-blue-500 rounded-full  :bg-gray-700  :text-gray-400 bg-blue-50">
-                                    Full time
-                                </span>
-                                <h2 class="text-sm font-medium  :text-gray-400">3 days from now</h2>
+                            <div>
+              <label for="category" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Status</label>
+                  <!-- <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label> -->
+                  <select name="status" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                      <option value="" selected disabled hidden>Select a category</option>
+                      <option value="in_stock">In Stock</option>
+                      <option value="out_of_stock">Out Of Stock</option>
+                      
+                  </select>
+              </div>
+                                
+                            <div>
+                                
+                            <form class="max-w-xs mx-auto">
+    <label for="quantity-input" class="block mb-2 text-sm font-medium text-gray-900      :text-white">Quantity:</label>
+    <div class="relative flex items-center max-w-[8rem]">
+        <button type="button" id="decrement-button" class="bg-gray-100  outline-none    :bg-gray-700      :hover:bg-gray-600      :border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100      :focus:ring-gray-700 focus:ring-2 focus:outline-none">
+            <svg class="w-3 h-3 text-gray-900      :text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"></path>
+            </svg>
+        </button>
+        <input type="text" id="quantity-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5      :bg-gray-700      :border-gray-600      :placeholder-gray-400      :text-white      :focus:ring-blue-500      :focus:border-blue-500" placeholder="0" required="">
+        <button type="button" id="increment-button" class="bg-gray-100      :bg-gray-700      :hover:bg-gray-600      :border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100      :focus:ring-gray-700 focus:ring-2 focus:outline-none">
+            <svg class="w-3 h-3 text-gray-900      :text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"></path>
+            </svg>
+        </button>
+    </div>
+    
+</form>
+
+                            </div>
+
                             </div>
                             <h2 class="mb-3 text-xl font-semibold lg:text-2xl  :text-gray-400">
-                                Vacancy- Java developer @ABC Company
+                                Product Name
                             </h2>
-                            <div class="flex items-center justify-between mb-3">
-                                <h2 class="text-sm font-medium  :text-gray-400">Starts from</h2>
-                                <span
-                                    class="inline-block px-2 py-1 text-sm text-blue-500 rounded-full bg-blue-50  :bg-gray-700  :text-gray-400">
-                                    7th march 2022</span>
+                            <div class=" flex items-center justify-between mb-2">
+                                <h2 class="text-sm font-medium mb-2 :text-gray-400">Category</h2>
+                                 
+                                 <div>
+                                 
+                              <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900   :text-white">Price</label>
+                            <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Price" required>
+                                </div>
                             </div>
-                            <p class="text-sm font-medium  :text-gray-400">Duration : <strong>2.5 months</strong></p>
+                            <p class="text-sm font-medium  :text-gray-400">Upadated At</p>
                             <div class="flex items-center justify-center mt-4">
                                 <a href=""
                                     class="w-full px-4 py-2 text-center text-gray-900 bg-blue-300 rounded-md  :bg-gray-700  :text-gray-400  :hover:bg-gray-900 hover:bg-blue-400">
-                                    Apply now</a>
+                                    Update</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full px-3 mb-6 lg:px-2 ">
-                    <div class="bg-white rounded-md  :bg-gray-800">
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-3">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm text-blue-500 rounded-full  :bg-gray-700  :text-gray-400 bg-blue-50">
-                                    Full time
-                                </span>
-                                <h2 class="text-sm font-medium  :text-gray-400">3 days from now</h2>
-                            </div>
-                            <h2 class="mb-3 text-xl font-semibold lg:text-2xl  :text-gray-400">
-                                Vacancy- Web developer @ABC Company
-                            </h2>
-                            <div class="flex items-center justify-between mb-3">
-                                <h2 class="text-sm font-medium  :text-gray-400">Starts from</h2>
-                                <span
-                                    class="inline-block px-2 py-1 text-sm text-blue-500 rounded-full bg-blue-50  :bg-gray-700  :text-gray-400">
-                                    7th march 2022</span>
-                            </div>
-                            <p class="text-sm font-medium  :text-gray-400">Duration : <strong>2.5 months</strong></p>
-                            <div class="flex items-center justify-center mt-4">
-                                <a href=""
-                                    class="w-full px-4 py-2 text-center text-gray-900 bg-blue-300 rounded-md  :bg-gray-700  :text-gray-400  :hover:bg-gray-900 hover:bg-blue-400">
-                                    Apply now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full px-3 mb-6 lg:px-2  ">
-                    <div class="bg-white rounded-md  :bg-gray-800">
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-3">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm text-blue-500 rounded-full  :bg-gray-700  :text-gray-400 bg-blue-50">
-                                    Full time
-                                </span>
-                                <h2 class="text-sm font-medium  :text-gray-400">3 days from now</h2>
-                            </div>
-                            <h2 class="mb-3 text-xl font-semibold lg:text-2xl  :text-gray-400">
-                                Vacancy- .Net developer @ABC Company
-                            </h2>
-                            <div class="flex items-center justify-between mb-3">
-                                <h2 class="text-sm font-medium  :text-gray-400">Starts from</h2>
-                                <span
-                                    class="inline-block px-2 py-1 text-sm text-blue-500 rounded-full bg-blue-50  :bg-gray-700  :text-gray-400">
-                                    7th march 2022</span>
-                            </div>
-                            <p class="text-sm font-medium  :text-gray-400">Duration : <strong>2.5 months</strong></p>
-                            <div class="flex items-center justify-center mt-4">
-                                <a href=""
-                                    class="w-full px-4 py-2 text-center text-gray-900 bg-blue-300 rounded-md  :bg-gray-700  :text-gray-400  :hover:bg-gray-900 hover:bg-blue-400">
-                                    Apply now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
+
+
+
+
+
+
+
+    <script>
+    document.getElementById('increment-button').addEventListener('click', function() {
+        var inputElement = document.getElementById('quantity-input');
+        inputElement.value = parseInt(inputElement.value) + 1 || 0; // Set to 0 if parsing result is NaN
+    });
+
+    document.getElementById('decrement-button').addEventListener('click', function() {
+        var inputElement = document.getElementById('quantity-input');
+        inputElement.value = Math.max(parseInt(inputElement.value) - 1, 0);
+    });
+</script>
 
 </body>
 </html>
