@@ -9,22 +9,28 @@
 </head>
 <body>
     
-<form>   
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only  :text-white">Search</label>
-    <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500  :text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
-        </div>
-        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300  bg-gray-50 focus:ring-blue-500 focus:border-blue-500  :bg-gray-700  :border-gray-600  :placeholder-gray-400  :text-white  :focus:ring-blue-500  :focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  :bg-blue-600  :hover:bg-blue-700  :focus:ring-blue-800">Search</button>
-    </div>
-</form>
+
 
 <section class="flex  items-center bg-gray-100  font-poppins  :bg-gray-900 ">
+
         <div class="justify-center max-w-6xl px-4 py-4 mx-auto lg:py-0">
             <div class="flex flex-wrap justify-center -mx-3 pt-11">
+            <div class="mb-8  :bg-gray-800">
+                        <div class="flex px-6 py-2 border border-blue-500 rounded-md  :border-gray-700">
+                            <input type="text"
+                                class="w-full pr-4 text-sm text-gray-700   bg-gray-100 placeholder-text-100 "
+                                placeholder="search...">
+                            <button
+                                class="flex items-center text-gray-700  :text-gray-400  :hover:text-blue-300 hover:text-blue-600">
+                                <span class="mr-2">Go</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 <div class="w-full px-3 mb-6 lg:px-2 ">
                     <div class="bg-white rounded-md  :bg-gray-800">
                         <div class="p-4">
