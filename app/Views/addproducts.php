@@ -10,7 +10,7 @@
     <!--Dashboard-->
     <div class="bg-gray-100 xl:h-screen  :bg-gray-800">
         <div class="body-content" x-data="{ open: false }">
-            <div class="relative lg:block navbar-menu">
+            <div class="relative lg:block navbar-menu">  
                 <nav x-bind:class="! open ? 'w-0' : 'w-[280px]'"
                     class="fixed top-0 transition-all lg:mt-0 z-40 mt-16 left-0  :bg-gray-900 bottom-0 flex flex-col w-[280px] lg:border-none border-r border-gray-200  :border-gray-800 bg-gray-50 overflow-hidden "
                     id="sidenav">
@@ -352,7 +352,7 @@
                <section class="bg-white :bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
       <h2 class="mb-4 text-xl font-bold text-gray-900 :text-white">Add a new product</h2>
-      <form action="#">
+      <form action="<?= base_url('product/add') ?>" method="post">
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div class="sm:col-span-2">
                   <label for="name" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Product Name</label>
@@ -375,10 +375,10 @@
               <div>
               <label for="category" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Status</label>
                   <!-- <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label> -->
-                  <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                  <select name="status" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                       <option value="" selected disabled hidden>Select a category</option>
-                      <option value="">Stock</option>
-                      <option value="">Out Of Stock</option>
+                      <option value="in_stock">In Stock</option>
+                      <option value="out_of_stock">Out Of Stock</option>
                       
                   </select>
               </div>
@@ -387,12 +387,13 @@
                
               <div class="sm:col-span-2">
                   <label for="description" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Description</label>
-                  <textarea id="description" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Product Discription"></textarea>
+                  <textarea name="description" id="description" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Product Discription"></textarea>
               </div>
           </div>
-          <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 :focus:ring-primary-900 hover:bg-primary-800">
-              Add product
-          </button>
+          <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 :focus:ring-primary-900 hover:bg-blue-600">
+    Add product
+</button>
+
       </form>
   </div>
 </section>
