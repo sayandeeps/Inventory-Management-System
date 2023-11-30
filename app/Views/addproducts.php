@@ -358,9 +358,9 @@
                   <label for="name" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Product Name</label>
                   <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Type product name" required="">
               </div>
-              <div class="w-full">
-                  <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Brand</label>
-                  <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Product brand" required="">
+              <div>
+                  <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Quantity</label>
+                  <input type="number" name="item-weight" id="item-weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="12" required="">
               </div>
               <div class="w-full">
                   <label for="price" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Price</label>
@@ -368,16 +368,25 @@
               </div>
               <div>
                   <label for="category" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Category</label>
-                  <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Product brand" required="">
+                  <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Type Of Product" required="">
 
               </div>
+
               <div>
-                  <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Quantity</label>
-                  <input type="number" name="item-weight" id="item-weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="12" required="">
-              </div> 
+                  <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                  <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                      <option value="" selected disabled hidden>Select a category</option>
+                      <option value="">Stock</option>
+                      <option value="">Out Of Stock</option>
+                      
+                  </select>
+              </div>
+              
+              
+               
               <div class="sm:col-span-2">
                   <label for="description" class="block mb-2 text-sm font-medium text-gray-900 :text-white">Description</label>
-                  <textarea id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Your description here"></textarea>
+                  <textarea id="description" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 :bg-gray-700 :border-gray-600 :placeholder-gray-400 :text-white :focus:ring-primary-500 :focus:border-primary-500" placeholder="Product Discription"></textarea>
               </div>
           </div>
           <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 :focus:ring-primary-900 hover:bg-primary-800">
