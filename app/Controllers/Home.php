@@ -16,4 +16,8 @@ class Home extends BaseController
     {
         return view('addproducts');
     }
+    public function searchproduct(): string
+    {
+        return view('searchproduct');
+    }
 }
