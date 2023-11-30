@@ -18,7 +18,7 @@
             <div class="mb-8  :bg-gray-800">
                         <div class="flex px-6 py-2 border border-blue-500 rounded-md  :border-gray-700">
                             <input type="text"
-                                class="w-full pr-4 text-sm text-gray-700   bg-gray-100 placeholder-text-100 "
+                                class="w-full pr-4 text-sm text-gray-700 outline-none   bg-gray-100 placeholder-text-100 "
                                 placeholder="search...">
                             <button
                                 class="flex items-center text-gray-700  :text-gray-400  :hover:text-blue-300 hover:text-blue-600">
