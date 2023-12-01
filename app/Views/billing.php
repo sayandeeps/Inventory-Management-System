@@ -56,6 +56,8 @@
                             </div>
                             <a href="#">
                                 <h3 class="mb-2 text-xl font-bold  :text-white"> <?= $product['pname'] ?> </h3>
+                                <p class="text-sm text-gray-500"><?= $product['category'] ?> </p>
+
                             </a>
                             <p class="text-lg font-bold text-blue-500  :text-blue-300 ">
                                 <span>$<?= $product['price']?>.00</span>
@@ -85,6 +87,7 @@
                             data-name="<?= $product['pname'] ?>"
                             data-status="<?= $product['status'] ?>"
                             data-price="<?= $product['price'] ?>"
+                            data-category="<?= $product['category'] ?>"
                             data-qty="1"
                             class="addcart absolute z-10 flex items-center justify-center p-1 text-center text-gray-100 bg-blue-500 rounded-full shadow-xl bottom-4 right-4 hover:bg-blue-700 w-11 h-11 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16">
@@ -139,7 +142,7 @@
                             <div
                                 class="flex items-center justify-between pb-4 mb-4 border-b border-gray-300   :border-gray-700 ">
                                 <span class="text-gray-700   :text-gray-400">Subtotal</span>
-                                <span class="text-xl font-bold text-gray-700   :text-gray-400 ">$100</span>
+                                <span id="subb" class="text-xl font-bold text-gray-700   :text-gray-400 ">$100</span>
                             </div>
                             <div class="flex items-center justify-between pb-4 mb-4 ">
                                 <span class="text-gray-700   :text-gray-400 ">Shipping</span>
@@ -147,7 +150,7 @@
                             </div>
                             <div class="flex items-center justify-between pb-4 mb-4 ">
                                 <span class="text-gray-700   :text-gray-400">Order Total</span>
-                                <span class="text-xl font-bold text-gray-700   :text-gray-400">$99.00</span>
+                                <span id="subbb" class="text-xl font-bold text-gray-700   :text-gray-400">$99.00</span>
                             </div>
                             <h2 class="text-  text-gray-500   :text-gray-400">We offer:</h2>
                             <div class="flex items-center gap-2 mb-4 ">
@@ -180,130 +183,180 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function(){
-    // Add product to cart AJAX call
-    $('.addcart').click(function(){
-        var product_id = $(this).data("id");
-        var product_name = $(this).data("name");
-        var product_qty = $(this).data("qty");
-        var product_status = $(this).data("status");
-        var product_price = $(this).data("price");
-        
-        if(product_status == 1){
-            $.ajax({
-                url: "<?php echo base_url(); ?>addcartproduct",
-                method: "POST",
-                data: {
-                    product_id: product_id,
-                    product_name: product_name,
-                    product_price: product_price,
-                    product_qty: product_qty,
-                    product_status: product_status
-                },
-                dataType: 'json',
-                success: function(response) {
-                    console.log(response)
-                    updateCartContents(response);
-                },
-                error: function(xhr, status, error) {
-                    alert("Error: " + error);
+        $(document).ready(function(){
+            var storedCartContents = JSON.parse(localStorage.getItem('cartContents')) || {};
+            updateCartContents(storedCartContents);
+            // Add product to cart AJAX call
+            $('.addcart').click(function(){
+                var product_id = $(this).data("id");
+                var product_name = $(this).data("name");
+                var product_qty = $(this).data("qty");
+                var product_status = $(this).data("status");
+                var product_price = $(this).data("price");
+                var product_category = $(this).data("category");
+
+                
+                if(product_status == 1){
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>addcartproduct",
+                        method: "POST",
+                        data: {
+                            product_id: product_id,
+                            product_name: product_name,
+                            product_price: product_price,
+                            product_qty: product_qty,
+                            product_status: product_status,
+                            product_category: product_category
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response)
+                            updateCartContents(response);
+                            
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Error: " + error);
+                        }
+                    });
+                } else {
+                    alert("The product is out of stock");
                 }
             });
-        } else {
-            alert("The product is out of stock");
-        }
-    });
 
 
+            function totalsumcart(cartContents){
+                var totalcart=0;
+                for (var key in cartContents) {
+                    if (cartContents.hasOwnProperty(key)) {
+                        var item = cartContents[key];
+                        totalcart+=item.subtotal
+                    }
+                }
+                return totalcart;
+            }
 
-    // Function to update cart contents
-    function updateCartContents(cartContents) {
-        var cartItems = $('#cartItems');
-        cartItems.empty(); // Clear existing items
 
-        // Loop through each key in the cartContents object
-        for (var key in cartContents) {
-            if (cartContents.hasOwnProperty(key)) {
-                var item = cartContents[key];
+            // Function to update cart contents
+            function updateCartContents(cartContents) {
+                var cartItems = $('#cartItems');
+                cartItems.empty(); // Clear existing items
 
-                // Create HTML structure for each item and append it to the cartItems container
-                // var html = `<div class="flex flex-wrap items-center mb-6 -mx-4 md:mb-8" data-id="${item.rowid}">
-                //     <h1>${item.name}</h1>
-                //     <p>Quantity: ${item.qty}</p>
-                //     <p>Price: $${item.price}</p>
-                //     <p>Total Price: $${item.subtotal}</p>
-                //     <p>Total Price: $${item.rowid}</p>
+                // Loop through each key in the cartContents object
+                for (var key in cartContents) {
+                    if (cartContents.hasOwnProperty(key)) {
+                        var item = cartContents[key];
+                        
 
-                //     <button data-id="${item.rowid}" data-qty="${item.qty}" class="removeitem">Remove</button>
-                // </div>`;
-                var html = `<div class="flex items-center mb-4 -mx-2">
-    <div class="w-1/2 px-2 mb-2 md:w-2/5 lg:w-1/2 md:mb-0">
-        <div class="flex items-center -mx-2">
-            <div class="w-1/2 px-2 mb-2 md:w-1/3">
-                <div class="w-full h-24 md:h-12 md:w-12">
-                    <img src="https://i.postimg.cc/kGjz3dpD/pexels-cottonbro-3296434.jpg" alt="" class="object-cover w-full h-full">
+                        // Create HTML structure for each item and append it to the cartItems container
+                        // var html = `<div class="flex flex-wrap items-center mb-6 -mx-4 md:mb-8" data-id="${item.rowid}">
+                        //     <h1>${item.name}</h1>
+                        //     <p>Quantity: ${item.qty}</p>
+                        //     <p>Price: $${item.price}</p>
+                        //     <p>Total Price: $${item.subtotal}</p>
+                        //     <p>Total Price: $${item.rowid}</p>
+
+                        //     <button data-id="${item.rowid}" data-qty="${item.qty}" class="removeitem">Remove</button>
+                        // </div>`;
+                        var html = `<div class="flex items-center mb-4 -mx-2">
+            <div class="w-1/2 px-2 mb-2 md:w-2/5 lg:w-1/2 md:mb-0">
+                <div class="flex items-center -mx-2">
+                    <div class="w-1/2 px-2 mb-2 md:w-1/3">
+                        <div class="w-full h-24 md:h-12 md:w-12">
+                            <img src="https://source.unsplash.com/random?food?sig=${item.id}" alt="" class="object-cover w-full h-full">
+                        </div>
+                    </div>
+                    <div class="w-auto px-2">
+                        <h2 class="mb-1 text-lg font-bold text-gray-400">${item.name}</h2>
+                        <p class="text-sm text-gray-500">${item.category}</p>
+                    </div>
                 </div>
             </div>
-            <div class="w-auto px-2">
-                <h2 class="mb-1 text-lg font-bold text-gray-400">DSL Camera</h2>
-                <p class="text-sm text-gray-500">Picture frame</p>
+            <div class="hidden px-2 lg:block lg:w-1/5">
+                <p class="text-sm font-bold text-blue-500">$${item.price}</p>
+        
+            </div>
+            <div class="w-auto px-2 md:w-1/4 lg:w-1/5">
+                <div class="inline-flex items-center px-2 font-semibold text-gray-500 border border-gray-200 rounded-md">
+                    <button data-id="${item.rowid}" data-qty="${item.qty}" class="removeitem py-1 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path>
+                        </svg>
+                    </button>
+                    <input type="number" class="w-12 px-2 py-1 text-center border-0 rounded-md bg-gray-50 text-gray-400 md:text-right" value="${item.qty}">
+                    <button data-id="${item.rowid}" data-qty="${item.qty}" class=" additem py-1 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="w-auto px-2 text-right md:w-1/5 lg:w-1/5">
+                <p class="text-sm font-bold text-blue-500">$${item.subtotal}</p>
             </div>
         </div>
-    </div>
-    <div class="hidden px-2 lg:block lg:w-1/5">
-        <p class="text-sm font-bold text-blue-500">$100.00</p>
-        <span class="text-xs text-gray-500 line-through">$1500</span>
-    </div>
-    <div class="w-auto px-2 md:w-1/4 lg:w-1/5">
-        <div class="inline-flex items-center px-2 font-semibold text-gray-500 border border-gray-200 rounded-md">
-            <button class="py-1 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path>
-                </svg>
-            </button>
-            <input type="number" class="w-12 px-2 py-1 text-center border-0 rounded-md bg-gray-50 text-gray-400 md:text-right" placeholder="1">
-            <button class="py-1 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                </svg>
-            </button>
-        </div>
-    </div>
-    <div class="w-auto px-2 text-right md:w-1/5 lg:w-1/5">
-        <p class="text-sm font-bold text-blue-500">$99.00</p>
-    </div>
-</div>
-`
+        `
 
-                // Append the HTML to cartItems
-                cartItems.append(html);
+                        // Append the HTML to cartItems
+                        cartItems.append(html);
+
+                        var totalSum = totalsumcart(cartContents);
+                        console.log("Total Sum of Subtotals:", totalSum);
+                        $('#subb').text('$' + totalSum);
+                        $('#subbb').text('$' + totalSum);
+
+                        localStorage.setItem('cartContents', JSON.stringify(cartContents));
 
 
-                $('.removeitem').click(function() {
-            var rowid = $(this).data("id");
-            var qty = $(this).data("qty");
 
-            $.ajax({
-                url: "<?php echo base_url(); ?>removeitem", // URL for the remove item action
-                method: "POST",
-                data: {
-                    rowid: rowid,
-                    qty: qty
-                },
-                dataType: 'json',
-                success: function(response) {
-                    console.log(response);
-                    updateCartContents(response);
-                },
-                error: function(xhr, status, error) {
-                    alert("Error: " + error);
+                        $('.removeitem').click(function() {
+                    var rowid = $(this).data("id");
+                    var qty = $(this).data("qty");
+
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>removeitem", // URL for the remove item action
+                        method: "POST",
+                        data: {
+                            rowid: rowid,
+                            qty: qty
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                            updateCartContents(response);
+                           
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Error: " + error);
+                        }
+                    });
+                });
+
+                $('.additem').click(function() {
+                    var rowid = $(this).data("id");
+                    var qty = $(this).data("qty");
+
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>additem", // URL for the remove item action
+                        method: "POST",
+                        data: {
+                            rowid: rowid,
+                            qty: qty
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                            updateCartContents(response);
+                            
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Error: " + error);
+                        }
+                    });
+                });
+                    }
                 }
-            });
-        });
             }
-        }
-    }
-});
+        });
 </script>
 
 

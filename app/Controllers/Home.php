@@ -169,6 +169,7 @@ public function addcartproduct()
     $product_price = $this->request->getPost('product_price');
     $product_qty = $this->request->getPost('product_qty');
     $product_status = $this->request->getPost('product_status');
+    $product_category = $this->request->getPost('product_category');
 
     // Load the Cart library
     $cart = \Config\Services::cart();
@@ -179,12 +180,15 @@ public function addcartproduct()
         'qty'     => $product_qty,
         'price'   => $product_price,
         'name'    => $product_name,
-        'status'  => $product_status // Assuming 'status' is the correct field name
+        'status'  => $product_status, // Assuming 'status' is the correct field name
+        'category'  => $product_category
     ));
 
 
     // Get updated cart contents
     $cartContents = $cart->contents();
+  
+
 
  
 
