@@ -101,7 +101,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="#"
+                                <a href="<?= base_url('/addproducts') ?>"
                                     class="flex items-center px-8 py-4 text-gray-700 group  :text-gray-400  :hover:bg-gray-700 hover:bg-gray-100">
                                     <span class="inline-block mr-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -165,7 +165,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="#"
+                                <a href="<?= base_url('/searchproduct') ?>"
                                     class="flex items-center px-8 py-4 text-gray-700  :text-gray-400 group  :hover:bg-gray-700 hover:bg-gray-100">
                                     <span class="inline-block mr-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
