@@ -26,8 +26,13 @@ class ProductModel extends Model
         return $this->find($id);
     }
 
+    // public function updateProduct($id, $data)
+    // {
+    //     return $this->update($id, $data);
+    // }
     public function updateProduct($id, $data)
-    {
-        return $this->update($id, $data);
-    }
+{
+    return $this->where('id', $id)->set($data)->update();
+}
+
 }
