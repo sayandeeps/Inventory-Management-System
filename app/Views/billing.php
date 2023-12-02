@@ -112,7 +112,7 @@
 <section class="py-24 bg-gray-100 font-poppins   :bg-gray-700">
         <div class="px-4 py-6 mx-auto max-w-7xl  :py-4 md:px-6">
             <div>
-                <h2 class="mb-8 text-4xl font-bold   :text-gray-400">Your Cart</h2>
+                <h2 class="mb-8 text-4xl font-bold   :text-gray-400">Your Cart <span><button id="destroycart"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></span> </h2>
                 <div class="p-6 mb-8 border bg-gray-50   :bg-gray-800   :border-gray-800">
                     <div class="flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-8">
                         <div class="w-full px-4 mb-6 md:w-4/6  :w-6/12 md:mb-0">
@@ -134,6 +134,28 @@
                         
                     </div>
                 </div>
+
+    <form id="checkoutcart" action="<?= base_url('submitcart') ?>" method="post">
+                <!--customer details-->
+                <div class=" items-center gap-4 mb-5 ">
+    <div class="flex flex-col">
+        <span class="text-gray-700 mb-3   :text-gray-400">Customer Name</span>
+        <div class="flex items-center gap-4">
+            <input name="cname" type="text" class="w-full px-8 py-4 font-normal placeholder-gray-400 border lg:flex-1   :border-gray-700   :placeholder-gray-500   :text-gray-400   :bg-gray-800" placeholder="Customer Name" required="">
+        </div>
+    </div>
+    
+    <!-- Add space between the sets of elements -->
+    <div class="flex flex-col">
+        <span class="text-gray-700 mt-3 mb-3   :text-gray-400">Customer Address</span>
+        <div class="flex items-center">
+            <input name="caddress" type="text" class="w-full px-8 py-4 font-normal placeholder-gray-400 border lg:flex-1   :border-gray-700   :placeholder-gray-500   :text-gray-400   :bg-gray-800" placeholder="Address" required="">
+        </div>
+    </div>
+</div>
+<input type="hidden" id="totalSum" name="totalSum">
+
+
                 <div class="flex flex-wrap justify-between">
                     
                     <div class="w-full px-4 mb-4 ">
@@ -152,26 +174,14 @@
                                 <span class="text-gray-700   :text-gray-400">Order Total</span>
                                 <span id="subbb" class="text-xl font-bold text-gray-700   :text-gray-400">$99.00</span>
                             </div>
-                            <h2 class="text-  text-gray-500   :text-gray-400">We offer:</h2>
-                            <div class="flex items-center gap-2 mb-4 ">
-                                <a href="#">
-                                    <img src="https://i.postimg.cc/g22HQhX0/70599-visa-curved-icon.png" alt=""
-                                        class="object-cover h-16 w-26">
-                                </a>
-                                <a href="#">
-                                    <img src="https://i.postimg.cc/HW38JkkG/38602-mastercard-curved-icon.png" alt=""
-                                        class="object-cover h-16 w-26">
-                                </a>
-                                <a href="#">
-                                    <img src="https://i.postimg.cc/HL57j0V3/38605-paypal-straight-icon.png" alt=""
-                                        class="object-cover h-16 w-26">
-                                </a>
-                            </div>
+                            
                             <div class="flex items-center justify-between ">
-                                <button
+                                <button type= "submit"
+                                data-
                                     class="block w-full py-4 font-bold text-center text-gray-100 uppercase bg-blue-500 rounded-md hover:bg-blue-600">Checkout</button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -184,6 +194,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
         $(document).ready(function(){
+            $('#destroycart').click(function() {
+                    
+
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>destroy", // URL for the remove item action
+                        method: "POST",
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                            updateCartContents(response);
+                            
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Error: " + error);
+                        }
+                    });
+                });
+
+
             var storedCartContents = JSON.parse(localStorage.getItem('cartContents')) || {};
             updateCartContents(storedCartContents);
             // Add product to cart AJAX call
@@ -303,6 +332,7 @@
                         console.log("Total Sum of Subtotals:", totalSum);
                         $('#subb').text('$' + totalSum);
                         $('#subbb').text('$' + totalSum);
+                        $('#totalSum').val(totalSum);
 
                         localStorage.setItem('cartContents', JSON.stringify(cartContents));
 
@@ -356,6 +386,11 @@
                     }
                 }
             }
+
+           
+
+
+
         });
 </script>
 

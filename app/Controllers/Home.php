@@ -204,9 +204,29 @@ public function addcartproduct()
 
 
 
- function load()
+ function destroy()
  {
-  echo $this->view();
+    $cart = \Config\Services::cart();
+    $cart->destroy();
+    $cartContents = $cart->contents();
+    return $this->response->setJSON($cartContents);
+
+ }
+
+ function submitcart()
+ {
+    $totalSum = $this->request->getPost('totalSum');
+    $cname= $this->request->getPost('cname');
+    $caddress= $this->request->getPost('caddress');
+    $cart = \Config\Services::cart();
+    $cartContents = $cart->contents();
+    foreach ($cartContents as $item){
+        
+    }
+    
+    
+
+
  }
 
 
