@@ -227,20 +227,32 @@ public function addcartproduct()
 
 
     foreach ($cartContents as $item){
-        $data = [
+        $datainsales = [
             'cname' => $this->request->getPost('cname'),
             'caddress' => $this->request->getPost('caddress'),
             'productid' => $item['id'],
             'totalsum' => $item['subtotal'],
             'qty' => $item['qty'],
         ];
-        $salesModel->insertSales($data);
-        var_dump($data);
+        $salesModel->insertSales($datainsales);
 
     }
+    $data=[
+        'orderdetails' => $cartContents,
+        'cname' => $this->request->getPost('cname'),
+        'caddress' => $this->request->getPost('caddress'),
+        'totalSumcart' => $totalSum,
+        'totalcount' => $cart->totalItems()
+    ];
+    $cart->destroy();
 
     
+    return view('ordersummary',$data);
+ }
 
+ function ordersummary()
+ {
+   return view('ordersummary');
 
  }
 

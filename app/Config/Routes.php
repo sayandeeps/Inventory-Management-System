@@ -19,6 +19,8 @@ $routes->match(['get', 'post'], '/removeitem', 'Home::removeitem');
 $routes->match(['get', 'post'], '/additem', 'Home::additem');
 $routes->match(['get', 'post'], '/destroy', 'Home::destroy');
 $routes->match(['get', 'post'], '/submitcart', 'Home::submitcart');
+$routes->match(['get', 'post'], '/ordersummary', 'Home::ordersummary');
+
 
 
 

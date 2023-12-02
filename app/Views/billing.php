@@ -164,7 +164,7 @@
                             <div
                                 class="flex items-center justify-between pb-4 mb-4 border-b border-gray-300   :border-gray-700 ">
                                 <span class="text-gray-700   :text-gray-400">Subtotal</span>
-                                <span id="subb" class="text-xl font-bold text-gray-700   :text-gray-400 ">$100</span>
+                                <span id="subb" class="text-xl font-bold text-gray-700   :text-gray-400 ">$0</span>
                             </div>
                             <div class="flex items-center justify-between pb-4 mb-4 ">
                                 <span class="text-gray-700   :text-gray-400 ">Shipping</span>
@@ -172,7 +172,7 @@
                             </div>
                             <div class="flex items-center justify-between pb-4 mb-4 ">
                                 <span class="text-gray-700   :text-gray-400">Order Total</span>
-                                <span id="subbb" class="text-xl font-bold text-gray-700   :text-gray-400">$99.00</span>
+                                <span id="subbb" class="text-xl font-bold text-gray-700   :text-gray-400">$00.00</span>
                             </div>
                             
                             <div class="flex items-center justify-between ">
@@ -193,7 +193,18 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    document.getElementById('checkoutcart').addEventListener('submit', function(event) {
+            $('#subb').text('$' + '0');
+            $('#subbb').text('$' + '0');
+            
+            localStorage.removeItem('cartContents');
+            });
+</script>
+<script>
         $(document).ready(function(){
+
+            
+
             $('#destroycart').click(function() {
                     
 
