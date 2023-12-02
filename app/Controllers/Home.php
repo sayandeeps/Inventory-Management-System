@@ -121,10 +121,19 @@ public function additem()
     // Retrieve rowid sent through AJAX
     $rowid = $this->request->getPost('rowid');
     $qty = $this->request->getPost('qty');
-    $qty=max($qty+1,0);
+    
+    $cart = \Config\Services::cart();
+    $cartitem = $cart->contents();
+    $productModel = new ProductModel();
+    $product_id=$cartitem[$rowid]["id"];
+    $originalProduct = $productModel->getProduct($product_id);
+    $orgqty = $originalProduct['quantity'];
+
+    $qty=min($qty+1,$orgqty);
+  
 
     // Load the Cart library
-    $cart = \Config\Services::cart();
+    
 
     // Update the quantity of the specified item by decrementing by 1
     $updated = $cart->update(array(
@@ -144,6 +153,7 @@ public function removeitem()
     // Retrieve rowid sent through AJAX
     $rowid = $this->request->getPost('rowid');
     $qty = $this->request->getPost('qty');
+
     $qty=max($qty-1,0);
 
     // Load the Cart library
@@ -169,9 +179,11 @@ public function addcartproduct()
     $product_id = $this->request->getPost('product_id');
     $product_name = $this->request->getPost('product_name');
     $product_price = $this->request->getPost('product_price');
-    $product_qty = $this->request->getPost('product_qty');
+    
     $product_status = $this->request->getPost('product_status');
     $product_category = $this->request->getPost('product_category');
+    $product_orgqty = $this->request->getPost('product_orgqty');
+    $product_qty = $this->request->getPost('product_qty');
 
     // Load the Cart library
     $cart = \Config\Services::cart();
@@ -183,12 +195,14 @@ public function addcartproduct()
         'price'   => $product_price,
         'name'    => $product_name,
         'status'  => $product_status, // Assuming 'status' is the correct field name
-        'category'  => $product_category
+        'category'  => $product_category,
+        'orgqty'  => $product_orgqty
     ));
-
+    
 
     // Get updated cart contents
     $cartContents = $cart->contents();
+    // var_dump($cartContents);die();
   
 
 
@@ -218,12 +232,17 @@ public function addcartproduct()
  function submitcart()
  {
     $totalSum = $this->request->getPost('totalSum');
+    $originalqty = $this->request->getPost('originalqty');
     $cname= $this->request->getPost('cname');
     $caddress= $this->request->getPost('caddress');
     $cart = \Config\Services::cart();
     $cartContents = $cart->contents();
     $productModel = new ProductModel();
     $salesModel = new SalesModel();
+
+    
+
+    
 
 
     foreach ($cartContents as $item){
@@ -233,8 +252,22 @@ public function addcartproduct()
             'productid' => $item['id'],
             'totalsum' => $item['subtotal'],
             'qty' => $item['qty'],
+            'category' => $item['category'],
+            'pname' => $item['name']
         ];
+        
         $salesModel->insertSales($datainsales);
+         $originalProduct = $productModel->getProduct($item['id']); // Fetch the original product
+    $originalqty = $originalProduct['quantity']; // Get the original quantity
+
+    $newqty = $originalqty - $item['qty'];
+
+    // Update the product quantity
+    $productModel->updateProduct($item['id'], ['quantity' => $newqty]);
+    if( $newqty == 0){
+        $productModel->updateProduct($item['id'], ['status' => 0]);
+    }
+
 
     }
     $data=[

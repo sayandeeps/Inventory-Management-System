@@ -8,7 +8,7 @@ class SalesModel extends Model
 {
     protected $table = 'sales';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['cname', 'caddress', 'productid', 'totalsum', 'qty', 'created_at','updated_at'];
+    protected $allowedFields = ['cname', 'caddress', 'productid', 'totalsum', 'qty', 'created_at','updated_at' , 'pname' , 'category'];
     protected $useTimestamps = true;
     protected $dateFormat = 'datetime';
 

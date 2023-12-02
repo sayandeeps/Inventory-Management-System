@@ -82,13 +82,14 @@
                             </div>
 
 
-                            <button   
+                            <button id="cartbtn<?=$product['id']?>"
                             data-id="<?= $product['id'] ?>" 
                             data-name="<?= $product['pname'] ?>"
                             data-status="<?= $product['status'] ?>"
                             data-price="<?= $product['price'] ?>"
                             data-category="<?= $product['category'] ?>"
                             data-qty="1"
+                            data-orgqty="<?= $product['quantity'] ?>"
                             class="addcart absolute z-10 flex items-center justify-center p-1 text-center text-gray-100 bg-blue-500 rounded-full shadow-xl bottom-4 right-4 hover:bg-blue-700 w-11 h-11 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16">
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
@@ -154,6 +155,9 @@
     </div>
 </div>
 <input type="hidden" id="totalSum" name="totalSum">
+<input type="hidden" id="originalqty" name="originalqty">
+
+
 
 
                 <div class="flex flex-wrap justify-between">
@@ -177,7 +181,7 @@
                             
                             <div class="flex items-center justify-between ">
                                 <button type= "submit"
-                                data-
+                                
                                     class="block w-full py-4 font-bold text-center text-gray-100 uppercase bg-blue-500 rounded-md hover:bg-blue-600">Checkout</button>
                             </div>
                         </div>
@@ -203,6 +207,7 @@
 <script>
         $(document).ready(function(){
 
+
             
 
             $('#destroycart').click(function() {
@@ -213,7 +218,7 @@
                         method: "POST",
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             updateCartContents(response);
                             
                         },
@@ -234,9 +239,16 @@
                 var product_status = $(this).data("status");
                 var product_price = $(this).data("price");
                 var product_category = $(this).data("category");
+                var product_orgqty=$(this).data("orgqty");
+                $('#originalqty').val(product_orgqty)
+                console.log(product_orgqty)
+                // console.log(countchecker)
+                var clickedButton = document.getElementById('cartbtn' + product_id);
+                console.log(clickedButton)
+                
 
                 
-                if(product_status == 1){
+                if(product_status == 1 ){
                     $.ajax({
                         url: "<?php echo base_url(); ?>addcartproduct",
                         method: "POST",
@@ -246,11 +258,14 @@
                             product_price: product_price,
                             product_qty: product_qty,
                             product_status: product_status,
-                            product_category: product_category
+                            product_category: product_category,
+                            product_orgqty: product_orgqty
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response)
+                            // clickedButton.prop('disabled', true);
+                            clickedButton.style.display = 'none';
+                            // presentqty=response.;
                             updateCartContents(response);
                             
                         },
@@ -317,13 +332,13 @@
             </div>
             <div class="w-auto px-2 md:w-1/4 lg:w-1/5">
                 <div class="inline-flex items-center px-2 font-semibold text-gray-500 border border-gray-200 rounded-md">
-                    <button data-id="${item.rowid}" data-qty="${item.qty}" class="removeitem py-1 hover:text-gray-700">
+                    <button data-id="${item.rowid}" data-qty="${item.qty}" data-orgqty="${item.orgqty}" class="removeitem py-1 hover:text-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path>
                         </svg>
                     </button>
-                    <input type="number" class="w-12 px-2 py-1 text-center border-0 rounded-md bg-gray-50 text-gray-400 md:text-right" value="${item.qty}">
-                    <button data-id="${item.rowid}" data-qty="${item.qty}" class=" additem py-1 hover:text-gray-700">
+                    <input type="number" class="w-12 px-2 py-1 text-center border-0 rounded-md bg-gray-50 text-gray-400 md:text-right" value="${item.qty}" min="0" max="${document.getElementById('originalqty').value}">
+                    <button data-id="${item.rowid}" data-qty="${item.qty}" data-orgqty="${item.orgqty}" class=" additem py-1 hover:text-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                         </svg>
@@ -335,15 +350,16 @@
             </div>
         </div>
         `
-
+                        // console.log(document.getElementById('originalqty').value)
                         // Append the HTML to cartItems
                         cartItems.append(html);
 
                         var totalSum = totalsumcart(cartContents);
-                        console.log("Total Sum of Subtotals:", totalSum);
+                        // console.log("Total Sum of Subtotals:", totalSum);
                         $('#subb').text('$' + totalSum);
                         $('#subbb').text('$' + totalSum);
                         $('#totalSum').val(totalSum);
+                        $('#presentqty').val(item.qty);
 
                         localStorage.setItem('cartContents', JSON.stringify(cartContents));
 
@@ -362,7 +378,8 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
+
                             updateCartContents(response);
                            
                         },
@@ -375,17 +392,22 @@
                 $('.additem').click(function() {
                     var rowid = $(this).data("id");
                     var qty = $(this).data("qty");
+                    var orgqty = $(this).data("orgqty");
+                    // console.log(orgqty)
+
 
                     $.ajax({
                         url: "<?php echo base_url(); ?>additem", // URL for the remove item action
                         method: "POST",
                         data: {
                             rowid: rowid,
-                            qty: qty
+                            qty: qty,
+                            orgqty: orgqty
+
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             updateCartContents(response);
                             
                         },
