@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\ProductModel;
+use App\Models\SalesModel;
+
 
 
 class Home extends BaseController
@@ -220,10 +222,23 @@ public function addcartproduct()
     $caddress= $this->request->getPost('caddress');
     $cart = \Config\Services::cart();
     $cartContents = $cart->contents();
+    $productModel = new ProductModel();
+    $salesModel = new SalesModel();
+
+
     foreach ($cartContents as $item){
-        
+        $data = [
+            'cname' => $this->request->getPost('cname'),
+            'caddress' => $this->request->getPost('caddress'),
+            'productid' => $item['id'],
+            'totalsum' => $item['subtotal'],
+            'qty' => $item['qty'],
+        ];
+        $salesModel->insertSales($data);
+        var_dump($data);
+
     }
-    
+
     
 
 
