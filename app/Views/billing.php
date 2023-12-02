@@ -90,7 +90,7 @@
                             data-category="<?= $product['category'] ?>"
                             data-qty="1"
                             data-orgqty="<?= $product['quantity'] ?>"
-                            class="addcart absolute z-10 flex items-center justify-center p-1 text-center text-gray-100 bg-blue-500 rounded-full shadow-xl bottom-4 right-4 hover:bg-blue-700 w-11 h-11 ">
+                            class="addcart cartbtnshow absolute z-10 flex items-center justify-center p-1 text-center text-gray-100 bg-blue-500 rounded-full shadow-xl bottom-4 right-4 hover:bg-blue-700 w-11 h-11 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16">
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
                                     </path>
@@ -211,15 +211,16 @@
             
 
             $('#destroycart').click(function() {
-                    
 
                     $.ajax({
                         url: "<?php echo base_url(); ?>destroy", // URL for the remove item action
                         method: "POST",
                         dataType: 'json',
                         success: function(response) {
+                            
                             // console.log(response);
                             updateCartContents(response);
+                            $('.cartbtnshow').css('display', 'block');
                             
                         },
                         error: function(xhr, status, error) {
@@ -264,7 +265,7 @@
                         dataType: 'json',
                         success: function(response) {
                             // clickedButton.prop('disabled', true);
-                            clickedButton.style.display = 'none';
+                            clickedButton.style.display = 'none'
                             // presentqty=response.;
                             updateCartContents(response);
                             

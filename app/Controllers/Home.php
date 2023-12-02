@@ -154,7 +154,7 @@ public function removeitem()
     $rowid = $this->request->getPost('rowid');
     $qty = $this->request->getPost('qty');
 
-    $qty=max($qty-1,0);
+    $qty=max($qty-1,1);
 
     // Load the Cart library
     $cart = \Config\Services::cart();
