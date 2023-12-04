@@ -14,7 +14,12 @@ class Home extends BaseController
     // }
     public function home(): string
     {
-        return view('welcome_message');
+        $productModel = new ProductModel();
+        $salesModel = new SalesModel();
+
+        $data['products'] = $productModel->getProduct();
+        $data['sales'] = $salesModel->getSales();
+        return view('welcome_message',$data);
     }
 
 
@@ -59,7 +64,7 @@ class Home extends BaseController
         $productModel->insertProduct($data);
         
 
-        return redirect()->to('welcome_message');
+        return view('welcome_message');
     }
 
 
