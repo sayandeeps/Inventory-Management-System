@@ -62,9 +62,12 @@ class Home extends BaseController
             'description' => $this->request->getPost('description')
         ];
         $productModel->insertProduct($data);
+        $salesModel = new SalesModel();
+        $data['products'] = $productModel->getProduct();
+        $data['sales'] = $salesModel->getSales();
         
 
-        return view('welcome_message');
+        return view('welcome_message',$data);
     }
 
 
